@@ -3,6 +3,10 @@
 vpc_name="vpc-group-4"
 vpc_cidr_block="10.0.0.0/16"
 region="us-east-2"
+security_group_name="group-4-sg"
+inbound_ports=(22 80 443)
+subnet_cidr_blocks=("10.0.1.0/24" "10.0.2.0/24" "10.0.3.0/24")
+azs=("us-east-2a" "us-east-2b" "us-east-2c")
 
 # 1. VPC named "vpc-group-4" with CIDR block 10.0.0.0/16 	
 # Create a VPC
@@ -10,3 +14,7 @@ vpc_id=$(aws ec2 create-vpc --cidr-block $vpc_cidr_block --region $region --quer
 
 # Created a tag to give the VPC a name
 aws ec2 create-tags --resources $vpc_id --tags Key=Name,Value=$vpc_name
+
+# 2. Security group named "sg-group-4"  --> AWS naming convention prevents us from creating a SG that starts with "sg-". Changing the name to "group-4-sg"
+
+sg=$(aws ec2 create-security-group --group-name $security_group_name --description "Allows inbound traffic on ports 22, 80, 443" --vpc-id $vpc_id --region $region --query GroupId --output text)
