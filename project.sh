@@ -18,3 +18,12 @@ aws ec2 create-tags --resources $vpc_id --tags Key=Name,Value=$vpc_name
 # 2. Security group named "sg-group-4"  --> AWS naming convention prevents us from creating a SG that starts with "sg-". Changing the name to "group-4-sg"
 
 sg=$(aws ec2 create-security-group --group-name $security_group_name --description "Allows inbound traffic on ports 22, 80, 443" --vpc-id $vpc_id --region $region --query GroupId --output text)
+
+# 3. Open inbound ports 22, 80, 443 for everything in security group "sg-group-4" 
+
+# Since we have ports array defined above, we can iterate through it and perform the action needed
+
+for port in "${inbound_ports[@]}"
+do
+   aws ec2 authorize-security-group-ingress --group-id $sg --protocol tcp --port $port --cidr 0.0.0.0/0 --region $region
+done
