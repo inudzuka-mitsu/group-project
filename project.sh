@@ -40,3 +40,17 @@ do
   az="${azs[$i]}"
   subnet_id=$(aws ec2 create-subnet --cidr-block "$cidr_block" --availability-zone "$az" --vpc-id "$vpc_id" --query Subnet.SubnetId --output text)
 done
+
+# 5. Create Internet Gateway 
+
+igw_id=$(aws ec2 create-internet-gateway --region $region --query InternetGateway.InternetGatewayId --output text)
+
+# 6. Attach Internet Gateway to VPC "vpc-group-4" 	
+
+aws ec2 attach-internet-gateway --vpc-id $vpc_id --internet-gateway-id $igw_id --region $region
+
+# 7. Create EC2 Instance named "ec2-group-4" with security group "sg-group-4". Since the task does not specify the subnet where we need to create an ec2 instance,
+# this can be done either in default subnet, or we need to provide subnet id. Since I deleted my default subnet, I need to provide subnet id. I am using subnet id of 
+# "us-east-2c" AZ and CIDR block "10.0.3.0/24".
+
+aws ec2 run-instances  --tag-specifications  'ResourceType=instance,Tags=[{Key=Name,Value=ec2-group-4}]' --image-id ami-019f9b3318b7155c5 --count 1 --instance-type t2.micro --security-group-ids $sg --subnet-id $subnet_id
