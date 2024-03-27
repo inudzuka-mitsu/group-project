@@ -27,3 +27,16 @@ for port in "${inbound_ports[@]}"
 do
    aws ec2 authorize-security-group-ingress --group-id $sg --protocol tcp --port $port --cidr 0.0.0.0/0 --region $region
 done
+
+# 4. Create 3 public subnets: 10.0.1.0/24, 10.0.2.0/24, 10.0.3.0/24 in each availability zones respectively (us-east-2a, us-east-2b, us-east-2c) 
+
+# Since we have subnet CIDR ranges array and AZs array defined above, we can iterate through them in parallel, accessing indeces of the arrays rather than values. For that, "!" is defined on the first line of the loop
+
+subnet_id=""
+
+for i in "${!subnet_cidr_blocks[@]}"
+do
+  cidr_block="${subnet_cidr_blocks[$i]}"
+  az="${azs[$i]}"
+  subnet_id=$(aws ec2 create-subnet --cidr-block "$cidr_block" --availability-zone "$az" --vpc-id "$vpc_id" --query Subnet.SubnetId --output text)
+done
