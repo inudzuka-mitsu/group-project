@@ -15,19 +15,19 @@ You should have access to the EC2 that contains this script. Please consult anyo
 First way: 
 
 ```
-./group-project/homework.sh
+./group-project/project.sh
 ```
 Note:
 
 The script must be executable for the command to work. To achieve this, run:
 
 ```
-chmod +x group-project/homework.sh
+chmod +x group-project/project.sh
 ```
 Second way:
 
 ```
-bash group-project/homework.sh
+bash group-project/project.sh
 ```
 Note:
 
