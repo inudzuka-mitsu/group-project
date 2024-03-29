@@ -4,7 +4,7 @@ This repo contains source code for Group Project 4.
 
 ## Dependencies 
 
-You should have access to the EC2 that contains this script. Please consult anyone in Group 4 to get acccess. 
+You should have access to the EC2 that contains this script. Please consult anyone in Group 4 to get acccess or see documentation (link below).
 
 ## Run the script 
 
@@ -32,4 +32,8 @@ bash group-project/homework.sh
 Note:
 
 If you prefer running scripts with the second command, you can omit changing the file's permissions. 
+
+Useful links:
+
+Confluence documentation: https://kaizenproject4.atlassian.net/wiki/spaces/KP4/overview
 
