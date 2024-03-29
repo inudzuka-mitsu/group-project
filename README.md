@@ -35,5 +35,5 @@ If you prefer running scripts with the second command, you can omit changing the
 
 Useful links:
 
-Confluence documentation: https://kaizenproject4.atlassian.net/wiki/spaces/KP4/overview
+Confluence documentation: https://kaizenproject4.atlassian.net/wiki/spaces/KP4/pages
 
