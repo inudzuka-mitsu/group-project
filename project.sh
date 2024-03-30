@@ -7,6 +7,7 @@ security_group_name="group-4-sg"
 inbound_ports=(22 80 443)
 subnet_cidr_blocks=("10.0.1.0/24" "10.0.2.0/24" "10.0.3.0/24")
 azs=("us-east-2a" "us-east-2b" "us-east-2c")
+ami_image_id="ami-019f9b3318b7155c5"
 
 # 1. VPC named "vpc-group-4" with CIDR block 10.0.0.0/16 	
 # Create a VPC
@@ -53,4 +54,4 @@ aws ec2 attach-internet-gateway --vpc-id $vpc_id --internet-gateway-id $igw_id -
 # this can be done either in default subnet, or we need to provide subnet id. Since I deleted my default subnet, I need to provide subnet id. I am using subnet id of 
 # "us-east-2c" AZ and CIDR block "10.0.3.0/24".
 
-aws ec2 run-instances  --tag-specifications  'ResourceType=instance,Tags=[{Key=Name,Value=ec2-group-4}]' --image-id ami-019f9b3318b7155c5 --count 1 --instance-type t2.micro --security-group-ids $sg --subnet-id $subnet_id
+aws ec2 run-instances  --tag-specifications  'ResourceType=instance,Tags=[{Key=Name,Value=ec2-group-4}]' --image-id $ami_image_id --count 1 --instance-type t2.micro --security-group-ids $sg --subnet-id $subnet_id
